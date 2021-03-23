@@ -40,7 +40,7 @@
  **                                                                                       **
  *******************************************************************************************/
 
-//#define KNUTWURST_KOSSEL_PLUS
+#define KNUTWURST_KOSSEL_PLUS
 //#define KNUTWURST_GRAPHIC_LCD
 //#define KNUTWURST_TMC
 //#define KNUTWURST_BLTOUCH
@@ -163,7 +163,7 @@
  *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
-#define BAUDRATE 250000
+#define BAUDRATE 115200
 
 // Enable the Bluetooth serial interface on AT90USB devices
 //#define BLUETOOTH
@@ -724,7 +724,7 @@
     #define DELTA_PRINTABLE_RADIUS 120.0  // (mm)
     
     // Center-to-center distance of the holes in the diagonal push rods.
-    #define DELTA_DIAGONAL_ROD 269.0        // (mm)
+    #define DELTA_DIAGONAL_ROD 269.0        // 269.0 (mm)
     
     // Horizontal offset from middle of printer to smooth rod center.
     #define DELTA_SMOOTH_ROD_OFFSET 188.0   // (mm)
@@ -747,14 +747,15 @@
   #endif
 
   // Distance between bed and nozzle Z home position
-  #define DELTA_HEIGHT 300.00             // (mm) Get this value from G33 auto calibrate
+  #define DELTA_HEIGHT 282.93             // 300 (mm) Get this value from G33 auto calibrate
 
-  #define DELTA_ENDSTOP_ADJ { 0.0, 0.0, 0.0 } // Get these values from G33 auto calibrate
-
+  #define DELTA_ENDSTOP_ADJ { -1.82, 0.00, -1.8 } // Get these values from G33 auto calibrate
+// M666 X-1.82 Y0.00 Z-1.88
   // Trim adjustments for individual towers
   // tower angle corrections for X and Y tower / rotate XYZ so Z tower angle = 0
   // measured in degrees anticlockwise looking from above the printer
-  #define DELTA_TOWER_ANGLE_TRIM { 0.0, 0.0, 0.0 } // Get these values from G33 auto calibrate
+// M665 L269.00 R133.84 H282.93 S80.00 X-0.40 Y-0.31 Z0.71
+  #define DELTA_TOWER_ANGLE_TRIM { -0.40, 0.31, 0.71 } // Get these values from G33 auto calibrate
 
   // Delta radius and diagonal rod adjustments (mm)
   //#define DELTA_RADIUS_TRIM_TOWER { 0.0, 0.0, 0.0 }
@@ -906,6 +907,10 @@
  * total number of extruders, the last value applies to the rest.
  */
 //#define DISTINCT_E_FACTORS
+
+// From G33
+// ; Delta settings: L<diagonal_rod> R<radius> H<height> S<segments_per_s> XYZ<tower angle corrections>
+// M665 L269.00 R133.84 H282.93 S80.00 X-0.40 Y-0.31 Z0.71
 
 /**
  * Default Axis Steps Per Unit (steps/mm)
@@ -1182,7 +1187,7 @@
  * Specify a Probe position as { X, Y, Z }
  */
 #if ANYCUBIC_PROBE_VERSION == 2
-  #define NOZZLE_TO_PROBE_OFFSET { 0, 0, -16.2 } //Offset for Probe until it clicks. So no need for paper leveling anymore!
+  #define NOZZLE_TO_PROBE_OFFSET { 0, 0, -16.3 } //Offset for Probe until it clicks. So no need for paper leveling anymore!
 #elif ANYCUBIC_PROBE_VERSION == 1
   #define NOZZLE_TO_PROBE_OFFSET { 0, 0, -19.0 }
 #else
@@ -1471,8 +1476,8 @@
   #define AUTO_BED_LEVELING_3POINT
 #else
 //#define AUTO_BED_LEVELING_LINEAR
-//#define AUTO_BED_LEVELING_BILINEAR
-  #define AUTO_BED_LEVELING_UBL
+#define AUTO_BED_LEVELING_BILINEAR
+//  #define AUTO_BED_LEVELING_UBL
 //#define MESH_BED_LEVELING
 #endif
 
@@ -1539,7 +1544,7 @@
     //#define ABL_BILINEAR_SUBDIVISION
     #if ENABLED(ABL_BILINEAR_SUBDIVISION)
       // Number of subdivisions between probe points
-      #define BILINEAR_SUBDIVISIONS 3
+      #define BILINEAR_SUBDIVISIONS 5
     #endif
 
   #endif
@@ -1744,8 +1749,8 @@
 
 // Preheat Constants
 #define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND 190
-#define PREHEAT_1_TEMP_BED     60
+#define PREHEAT_1_TEMP_HOTEND 200
+#define PREHEAT_1_TEMP_BED     65
 #define PREHEAT_1_FAN_SPEED   255 // Value from 0 to 255
 
 #define PREHEAT_2_LABEL       "ABS"
@@ -2093,7 +2098,7 @@
 //
 // Generic 16x2, 16x4, 20x2, or 20x4 character-based LCD.
 //
-//#define ULTRA_LCD
+#define ULTRA_LCD
 
 //=============================================================================
 //======================== LCD / Controller Selection =========================
